@@ -1,32 +1,32 @@
-import { getAuthorBooks, getSingleAuthor, deleteSingleAuthor } from './authorData';
-import { getSingleBook, deleteBook } from './bookData';
+import { getMemberTeam, getSingleTeam, deleteTeam } from './teamData';
+import { getSingleMember, deleteMember } from './memberData';
 
-const viewBookDetails = (bookFirebaseKey) => new Promise((resolve, reject) => {
-  getSingleBook(bookFirebaseKey)
-    .then((bookObject) => {
-      getSingleAuthor(bookObject.author_id)
-        .then((authorObject) => {
-          resolve({ authorObject, ...bookObject });
+const viewMemberDetails = (memberFirebaseKey) => new Promise((resolve, reject) => {
+  getSingleMember(memberFirebaseKey)
+    .then((memberObject) => {
+      getSingleTeam(memberObject.team_id)
+        .then((teamObject) => {
+          resolve({ teamObject, ...memberObject });
         });
     }).catch((error) => reject(error));
 });
 
-const viewAuthorDetails = (authorFirebaseKey) => new Promise((resolve, reject) => {
-  Promise.all([getSingleAuthor(authorFirebaseKey), getAuthorBooks(authorFirebaseKey)])
-    .then(([authorObject, authorBooksArray]) => {
-      resolve({ ...authorObject, books: authorBooksArray });
+const viewTeamDetails = (teamFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleTeam(teamFirebaseKey), getMemberTeam(teamFirebaseKey)])
+    .then(([teamObject, teamMemberArray]) => {
+      resolve({ ...teamObject, members: teamMemberArray });
     }).catch((error) => reject(error));
 });
 
-const deleteAuthorBooks = (authorId) => new Promise((resolve, reject) => {
-  getAuthorBooks(authorId).then((booksArray) => {
-    console.warn(booksArray, 'Author Books');
-    const deleteBookPromises = booksArray.map((book) => deleteBook(book.firebaseKey));
+const deleteTeamMember = (teamId) => new Promise((resolve, reject) => {
+  getMemberTeam(teamId).then((membersArray) => {
+    console.warn(membersArray, 'Delete from Team?');
+    const deleteMemberPromises = membersArray.map((members) => deleteMember(members.firebaseKey));
 
-    Promise.all(deleteBookPromises).then(() => {
-      deleteSingleAuthor(authorId).then(resolve);
+    Promise.all(deleteMemberPromises).then(() => {
+      deleteTeam(teamId).then(resolve);
     });
   }).catch((error) => reject(error));
 });
 
-export { viewBookDetails, viewAuthorDetails, deleteAuthorBooks };
+export { viewMemberDetails, viewTeamDetails, deleteTeamMember };
