@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Link from 'next/link';
-import { deleteTeam } from '../api/Teams';
+import { deleteTeam } from '../api/teamData';
 
 function TeamCard({ teamObj, onUpdate }) {
   const deleteThisTeam = () => {
