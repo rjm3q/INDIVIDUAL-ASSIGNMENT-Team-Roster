@@ -12,6 +12,7 @@ const initialState = {
   image: '',
   name: '',
   role: '',
+  team_name: '',
 };
 
 function MemberForm({ obj }) {
@@ -126,7 +127,7 @@ MemberForm.propTypes = {
     image: PropTypes.string,
     role: PropTypes.string,
     name: PropTypes.string,
-    team_id: PropTypes.string,
+    team_name: PropTypes.string,
     firebaseKey: PropTypes.string,
   }),
 };
