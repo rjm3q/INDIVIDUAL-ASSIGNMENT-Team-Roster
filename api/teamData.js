@@ -65,7 +65,7 @@ const updateTeam = (payload) => new Promise((resolve, reject) => {
 });
 
 const getMemberTeam = (firebaseKey) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}//teams.json?orderBy="author_id"&equalTo=${firebaseKey}`, {
+  fetch(`${endpoint}//teams.json?orderBy="team_id"&equalTo=${firebaseKey}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

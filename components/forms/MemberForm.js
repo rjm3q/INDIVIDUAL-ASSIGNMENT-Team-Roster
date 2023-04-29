@@ -95,10 +95,10 @@ function MemberForm({ obj }) {
       <FloatingLabel controlId="floatingSelect" label="Team">
         <Form.Select
           aria-label="Team"
-          name="team_name"
+          name="team_id"
           onChange={handleChange}
           className="mb-3"
-          value={formInput.team_name}
+          value={formInput.team_id}
           required
         >
           <option value="">Select a Team Affiliation</option>
@@ -108,7 +108,7 @@ function MemberForm({ obj }) {
                 key={teamKey.firebaseKey}
                 value={teamKey.firebaseKey}
               >
-                {team.team_name}
+                {teamKey.team_name}
               </option>
             ))
           }
